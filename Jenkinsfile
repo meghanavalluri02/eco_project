@@ -4,13 +4,13 @@ pipeline {
     environment {
         DOCKER_IMAGE = "my-ecommerce-backend"
         DOCKER_TAG = "${BUILD_NUMBER}"
-        REGISTRY = "juhichoudhary/my-ecommerce"
+        REGISTRY = "meghanavalluri/my-ecommerce"
     }
 
     stages {
         stage('Checkout Code') {
             steps {
-                git branch : 'main', url: 'https://github.com/Juhi5863/ecommerce_Project_Jenkins.git'
+                git branch : 'main', url: 'https://github.com/meghanavalluri02/eco_project.git'
             }
         }
 
@@ -25,7 +25,7 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    withDockerRegistry([credentialsId: '6a280542-7619-4c87-9db0-a1208d2b1bc5', url: '']) {
+                    withDockerRegistry([credentialsId: 'dockerhub-credentials', url: '']) {
                         sh "docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${REGISTRY}:${DOCKER_TAG}"
                         sh "docker push ${REGISTRY}:${DOCKER_TAG}"
                     }
